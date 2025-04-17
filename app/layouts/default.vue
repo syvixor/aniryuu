@@ -5,7 +5,7 @@ const { color } = useAppConfig();
 <template>
     <NuxtLoadingIndicator :color="color" />
     <Header />
-    <div class="lg:w-5/6 mx-auto space-y-8 mb-8">
+    <div class="space-y-4 my-2 lg:my-8 p-4">
         <slot />   
     </div>
     <Footer />

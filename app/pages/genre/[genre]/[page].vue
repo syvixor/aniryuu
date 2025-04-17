@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-const { genre, page } = useRoute().params
+import type { IAnimeList } from "~/types";
 
-const toTitleCase = (genre: string) => {
-    return genre.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
-}
+const { genre, page } = useRoute().params
+const { data } = await useFetch<IAnimeList>("/api/genre", { query: { genre, page } });
 </script>
 
 <template>
     <Head>
-        <Title>Aniryuu - {{ toTitleCase(genre as string) }}</Title>
+        <Title>Aniryuu - {{ formatString(genre as string, "title") }}</Title>
     </Head>
-    <Genre :genre="genre as string" :page="Number(page)" />
+    <Label>{{ formatString(genre as string, "title") }} Genre</Label>
+    <Cards :data="data!" />
+    <Pagination :pagination="data!" :page="parseInt(page as string)" />
 </template>
